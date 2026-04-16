@@ -1,10 +1,10 @@
 # Structured Prompt Generator (Streamlit)
 
-A modern, user-friendly AI prompt generator built with Python Streamlit. This tool supports English and Chinese, allows dynamic addition/removal of multiple Actions, and provides real-time preview, copy, and download of standardized prompts.
+A bilingual prompt-building workspace for creating high-quality structured prompts with better UX and stronger guardrails.
 
-## 🚀 Quick Start
+## Quick Start
 
-1. (Recommended) Create a virtual environment and activate it:
+1. (Recommended) Create and activate a virtual environment:
    ```bash
    python3 -m venv .venv
    source .venv/bin/activate
@@ -13,58 +13,46 @@ A modern, user-friendly AI prompt generator built with Python Streamlit. This to
    ```bash
    pip install -r requirements.txt
    ```
-3. Launch the app:
+3. Run the app:
    ```bash
    streamlit run app.py
    ```
+4. (Optional) Run regression tests:
+   ```bash
+   python3 -m unittest discover -s tests
+   ```
 
-## 🗂️ Project Structure
-- `app.py`: Main Streamlit app and UI logic
-- `utils.py`: Prompt generation logic
-- `requirements.txt`: Python dependencies
-- `README.md`: Documentation
+## What's Improved
 
-## ✨ Features
-- **Sectioned Input**: Fill in five key sections—Role, Task, Context, Action, Output
-- **Dynamic Multi-Action**: Add or remove multiple actions; each action is rendered as an individual prompt step
-- **Live Preview**: Instantly preview the generated prompt on the right panel
-- **One-Click Copy & Download**: Copy via built-in code-block button plus an explicit "Copy" button; download as .txt
-- **Reset Functionality**: Quickly clear all fields
-- **Bilingual Support**: Switch between English and Chinese UI and prompt templates
+- **Refactored architecture**
+  - `app.py` now uses clear rendering helpers and session-state utilities.
+  - `utils.py` handles normalization, scoring, validation, and prompt generation.
+- **Better UX workflow**
+  - Prompt workspace sidebar with real-time quality score.
+  - Starter presets (EN/ZH) to quickly bootstrap real use cases.
+  - Prompt insights tab with warnings and actionable suggestions.
+  - Export both generated prompt (`.txt`) and full form state (`.json`).
+- **Higher-quality prompt output**
+  - Stable action normalization from list or multiline text.
+  - Browse action URL validation.
+  - Cleaner prompt rendering without accidental indentation.
+- **Repository hygiene**
+  - Added `.gitignore`.
+  - Removed tracked `__pycache__` artifacts.
+  - Added unit tests for critical prompt logic.
 
-## 🖥️ How to Use
-1. Select your language (English/中文)
-2. Fill in each field on the left; use "✅ Add Action" to add steps, and the trash icon to remove
-3. Preview the structured prompt on the right; use the copy button or download
-4. Click "Reset" to clear all inputs
+## Project Structure
 
-## 📝 Example Output
-```markdown
-# <Role>
-- You are an expert in {domain} with specialization in {specialization}.
+- `app.py` — Streamlit UI and interaction flow
+- `utils.py` — prompt generation, validation, presets, normalization
+- `tests/test_utils.py` — regression tests
+- `prompt_engineering_generator.tsx` — React prototype component
+- `requirements.txt` — Python dependencies
 
-# <Task>
-- Your task is to {specific goal}.
+## Feature Highlights
 
-# <Context>
-- Here is the context you need:
-  - {details}
-  - {constraints}
-
-# <ReAct Framework>
-## Reasoning
-- Let's think step by step.
-## Action
-- [Search("latest market trend")]
-- [Lookup("LLM basics")]
-## Observation
-- Use the action results to produce the answer.
-
-# <Output Format>
-- Return a {format} file (you can specify a structure).
-- Don't {unwanted result}
-```
-
----
-
-This project is ideal for prompt engineering, workflow design, and defining AI agent tasks. Easily generate, preview, and export structured prompts with multiple actions and multilingual support.
+- Bilingual interface (English / 中文)
+- Section-based prompt builder (Role / Task / Action / Context / Output)
+- Dynamic multi-action editing (Search / Lookup / Browse)
+- Prompt quality score and missing-required-field check
+- Prompt preview with download and JSON export
